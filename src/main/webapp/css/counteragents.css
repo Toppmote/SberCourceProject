@@ -1,0 +1,10 @@
+body {
+    margin:0;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+}
+
+.main {
+    overflow: hidden;
+    width: 90%;
+    margin: 120px auto;
+}

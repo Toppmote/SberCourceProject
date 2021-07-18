@@ -1,0 +1,25 @@
+.green-button input[type=submit] {
+    background-color: #2ecc71;
+}
+
+.green-button input[type=submit]:hover {
+    background-color: #48E68B;
+}
+
+.red-button button[type=submit], .red-button input[type=submit] {
+    background-color: #ff0404;
+}
+
+.red-button button[type=submit]:hover, .red-button input[type=submit]:hover {
+    background-color: #F44336;
+}
+
+.modal-content input[type=submit]:active, .modal-content button[type=submit]:active {
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0 1px 0 0;
+}
+
+.modal-content input[type=submit]:hover, .modal-content button[type=submit] {
+    cursor: pointer;
+}

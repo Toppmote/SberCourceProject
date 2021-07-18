@@ -1,0 +1,61 @@
+/*ГОРИЗОНТАЛЬНОЕ МЕНЮ*/
+.navbar * {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar ul {
+    list-style: none;
+}
+
+.navbar > ul > li{
+    float: left;
+    position: relative;
+}
+
+.navbar button {
+    width: 160px;
+    float: left;
+    display: block;
+    background: #333;
+    color: #f2f2f2;
+    text-align: center;
+    font-size: 18px;
+    padding: 15px 20px 15px 20px;
+    text-decoration: none;
+    border: none;
+}
+
+.dropdown-menu button {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    text-align: left;
+    font-size: 14px;
+}
+
+.navbar li button:hover {
+    background: #ddd;
+    color: black;
+    cursor: pointer;
+}
+
+.navbar li .dropdown-menu{
+    display: none;
+    position: absolute;
+    top: 100%;
+}
+
+.navbar li:hover .dropdown-menu{
+    display: block;
+}
+
+.navbar i {
+    margin-left: 5px;
+}

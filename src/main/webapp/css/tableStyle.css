@@ -1,0 +1,61 @@
+.main table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.main th {
+    padding: 12px 20px 5px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    background-color: #ffffff;
+    border-bottom-style: solid !important;
+    border-bottom-width: 3px;
+    border-bottom-color: #1f1e1e;
+}
+
+.main td {
+    padding: 12px 20px;
+}
+
+.main tr {
+    background-color: #eaeaea;
+}
+
+.main tr:nth-child(odd) {
+    background-color: #fcfcfc;
+}
+
+.main tr:hover {
+    background-color:  #e5e1e1;
+}
+
+/*КНОПКИ В ПОСЛЕДНЕЙ КОЛОНКЕ ТАБЛИЦЫ*/
+
+.main table button {
+    font-weight: bold;
+    color: #566787;
+    display: inline-block;
+    text-decoration: none;
+    background-color: transparent;
+    border: none !important;
+    outline: none !important;
+    text-align: right;
+}
+
+.main table button:hover {
+    cursor: pointer;
+}
+
+.main table .edit-btn {
+    color: #FFC107;
+}
+
+.main table .del-btn {
+    color: #F44336;
+}
+
+.main table td i {
+    font-size: 19px;
+}
