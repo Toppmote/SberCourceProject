@@ -18,7 +18,7 @@
 <div class="navbar">
     <ul>
         <li>
-            <button id="addButton">Добавить</button>
+            <button id="addButton" onclick="openAddForm(modalAdd)">Добавить</button>
         </li>
         <li>
             <button>Удалить<i class="fa fa-caret-down"></i></button>
@@ -35,7 +35,7 @@
             <button>Поиск<i class="fa fa-caret-down"></i></button>
             <ul class="dropdown-menu">
                 <li>
-                    <button id="searchName">По наименованию</button>
+                    <button id="searchName" onclick="openSearchByNameForm()">По наименованию</button>
                 </li>
                 <li>
                     <button id="searchAccNumberBik">По БИК-номер счёта</button>
@@ -44,7 +44,6 @@
         </li>
     </ul>
 </div>
-
 
 <div class="main">
     <div class="header"><h1>Таблица контрагентов</h1></div>
@@ -67,7 +66,7 @@
                 <td>${counteragent.accountNumber}</td>
                 <td>${counteragent.bik}</td>
                 <td>
-                    <button onclick="openCngForm('${counteragent.id}', '${counteragent.name}', '${counteragent.inn}',
+                    <button onclick="openCngForm(modalCng, '${counteragent.id}', '${counteragent.name}', '${counteragent.inn}',
                             '${counteragent.kpp}', '${counteragent.accountNumber}', '${counteragent.bik}')"
                             class="edit-btn"><i class="fa fa-pencil"></i>
                     </button>
@@ -80,7 +79,7 @@
     <div id="addModal" class="modal">
         <div class="modal-content">
             <form action="/counteragents" method="post">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeForm(modalAdd)">&times;</span>
                 <h2>Добавление контрагента</h2>
                 <jsp:include page="components/counteragentForm.jsp"/>
                 <div class="green-button">
@@ -92,7 +91,7 @@
     <div id="cngModal" class="modal">
         <div class="modal-content">
             <form action="/counteragents/update" method="post">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeForm(modalCng)">&times;</span>
                 <h2>Редактирование контрагента</h2>
                 <jsp:include page="components/counteragentForm.jsp"/>
                 <div class="green-button">
@@ -103,7 +102,7 @@
     </div>
     <div id="delModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeForm(modalConfirmDel)">&times;</span>
             <h2>Удаление контрагента</h2>
             <div class="delete-text">
                 <p>Вы действительно хотите удалить контрагента?<br>
@@ -117,10 +116,10 @@
     <div id="delByIdModal" class="modal">
         <div class="modal-content">
             <form action="/counteragents/delete" method="post">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeForm(modalDelId)">&times;</span>
                 <h2>Удаление по ID</h2>
                 <label>
-                    <input type="text" name="id" placeholder="ID контрагента" required="required"/>
+                    <input type="number" name="id" placeholder="ID контрагента" required="required"/>
                 </label>
                 <jsp:include page="components/delButton.jsp"/>
             </form>
@@ -129,108 +128,48 @@
     <div id="delByNameModal" class="modal">
         <div class="modal-content">
             <form action="/counteragents/delete" method="post">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeForm(modalDelName)">&times;</span>
                 <h2>Удаление по наименованию</h2>
                 <label>
-                    <input type="text" name="name" placeholder="Имя контрагента" required="required"
+                    <input type="text" name="name" placeholder="Имя контрагента" required="required" value=""
                            maxlength="${constants.NAME_LENGTH}"/>
                 </label>
                 <jsp:include page="components/delButton.jsp"/>
             </form>
         </div>
     </div>
+    <div id="searchByNameModal" class="modal">
+        <div class="modal-content">
+            <form action="/counteragents/search_result" method="post">
+                <span class="close" onclick="closeForm(modalSearchName)">&times;</span>
+                <h2>Поиск по наименованию</h2>
+                <label>
+                    <input type="text" name="name" placeholder="Имя контрагента" required="required"
+                           maxlength="${constants.NAME_LENGTH}"/>
+                </label>
+
+            </form>
+        </div>
+    </div>
+    <div id="searchByBikAndAccNumber" class="modal">
+        <div class="modal-content">
+            <form action="/counteragents/search_result" method="post">
+                <span class="close">&times;</span>
+                <h2>Поиск по паре номер счёта-БИК</h2>
+                <label>
+                    <input type="text" name="accountNumber" placeholder="Номер счёта"
+                           required="required" maxlength="${constants.ACCOUNT_NUMBER_LENGTH}"/>
+                </label>
+                <label>
+                    <input type="text" name="bik" placeholder="БИК" required="required"
+                           maxlength="${constants.BIK_LENGTH}"/>
+                </label>
+            </form>
+        </div>
+    </div>
 </div>
 
-<script>
-    //Открытие формы добавления
-    const modalAdd = document.getElementById("addModal");
-    const btnAdd = document.getElementById("addButton");
-
-    let spanButtons = document.querySelectorAll(".close");
-
-    btnAdd.onclick = function () {
-        clearInputValues();
-        modalAdd.style.display = "block";
-    }
-
-    let inputId = document.getElementsByName("id");
-    let inputName = document.getElementsByName("name");
-    let inputInn = document.getElementsByName("inn");
-    let inputKpp = document.getElementsByName("kpp");
-    let inputAccNumber = document.getElementsByName("accountNumber");
-    let inputBikNumber = document.getElementsByName("bik");
-
-    //Очистить все поля формы добавления
-    function clearInputValues() {
-        inputId[0].setAttribute('value', "");
-        inputName[0].setAttribute('value', "");
-        inputInn[0].setAttribute('value', "");
-        inputKpp[0].setAttribute('value', "");
-        inputAccNumber[0].setAttribute('value', "");
-        inputBikNumber[0].setAttribute('value', "");
-    }
-
-    //Задать значение атрибутам формы редактирования
-    function changeInputValues(id, name, inn, kpp, accNumber, bik) {
-        inputId[1].setAttribute('value', id);
-        inputName[1].setAttribute('value', name);
-        inputInn[1].setAttribute('value', inn);
-        inputKpp[1].setAttribute('value', kpp);
-        inputAccNumber[1].setAttribute('value', accNumber);
-        inputBikNumber[1].setAttribute('value', bik);
-    }
-
-    //Открытие формы для подтверждения удаления
-    const modalConfirmDel = document.getElementById("delModal");
-    let delAgentId = "";
-
-    function openConfirmDelForm(agentId) {
-        inputId[2].setAttribute('value', "");
-        modalConfirmDel.style.display = "block";
-    }
-
-    //Открытие форму удаления по ID
-    const modalDelId = document.getElementById("delByIdModal");
-
-    function openDelByIDForm() {
-        modalDelId.style.display = "block";
-    }
-
-    //Открытие форму удаления по наименованию
-    const modalDelName = document.getElementById("delByNameModal");
-
-    function openDelByNameForm() {
-        modalDelName.style.display = "block";
-    }
-
-    //Нажатие кнопки подтверждения удаления
-    function clickDelConfirm() {
-        document.location.href = "/counteragents/delete/" + delAgentId;
-    }
-
-    //Открытие формы редактирования
-    const modalCng = document.getElementById("cngModal");
-
-    function openCngForm(id, name, inn, kpp, accNumber, bik) {
-        changeInputValues(id, name, inn, kpp, accNumber, bik);
-        modalCng.style.display = "block";
-    }
-
-    function clickCngConfirm() {
-        document.location.href = "/counteragents/update";
-    }
-
-    //Обработчик закрытия форм
-    spanButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
-            modalAdd.style.display = "none";
-            modalCng.style.display = "none";
-            modalConfirmDel.style.display = "none";
-            modalDelId.style.display = "none";
-            modalDelName.style.display = "none";
-        })
-    });
-</script>
+<script src="<c:url value="/js/modalFormScripts.js"/>"></script>
 
 </body>
 

@@ -55,7 +55,12 @@
     margin-bottom: 5px;
 }
 
-.modal-content input[type=text] {
+.modal-content input::-webkit-outer-spin-button, .modal-content input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal-content input[type=text], .modal-content input[type="number"] {
     width: 100%;
     margin-bottom: 10px;
     background: rgba(0, 0, 0, 0.3);
@@ -79,10 +84,10 @@
     font-size: 18px;
 }
 
-.modal-content input[type=text]::placeholder {
+.modal-content input[type=text]::placeholder, .modal-content input[type="number"]::placeholder {
     color: #bfb8b8;
 }
 
-.modal-content input[type=text]:focus {
+.modal-content input[type=text]:focus, .modal-content input[type="number"]:focus {
     box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
 }
