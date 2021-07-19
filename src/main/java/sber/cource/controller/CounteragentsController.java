@@ -19,12 +19,12 @@ public class CounteragentsController {
     /**
      * Метод при загрузке страницы контрагентов.
      *
-     * @return
+     * @return интерфейс для передачи значений на страницу .jsp
      */
     @GetMapping("/counteragents")
     public ModelAndView getAllCounteragents() {
         List<Counteragent> counteragentList = counteragentService.findAll();
-        ModelAndView modelAndView = new ModelAndView("counteragents");
+        ModelAndView modelAndView = new ModelAndView("counteragentsPage");
         modelAndView.addObject("counteragentsList", counteragentList);
         modelAndView.addObject("constants", new InputConstants());
         return modelAndView;
@@ -34,7 +34,7 @@ public class CounteragentsController {
     public ModelAndView addCounteragent(CounteragentForm counteragentForm) {
         Counteragent newCounteragent = Counteragent.from(counteragentForm);
         counteragentService.save(newCounteragent);
-        ModelAndView modelAndView = new ModelAndView("redirect:/counteragents");
+        ModelAndView modelAndView = new ModelAndView("counteragentsPage");
         List<Counteragent> counteragentList = counteragentService.findAll();
         modelAndView.addObject("counteragentsList", counteragentList);
         modelAndView.addObject("constants", new InputConstants());
@@ -44,7 +44,7 @@ public class CounteragentsController {
     @GetMapping("/counteragents/delete/{id}")
     public ModelAndView deleteCounteragentById(@PathVariable("id") long id) {
         counteragentService.deleteById(id);
-        return new ModelAndView("redirect:/counteragents");
+        return new ModelAndView("counteragentsPage");
     }
 
     @PostMapping("/counteragents/delete")
@@ -54,13 +54,13 @@ public class CounteragentsController {
             counteragentService.deleteById(counteragentForm.getId());
         else
             counteragentService.deleteByName(counteragentForm.getName());
-        return new ModelAndView("redirect:/counteragents");
+        return new ModelAndView("counteragentsPage");
     }
 
     @PostMapping("/counteragents/update")
     public ModelAndView updateCounteragent(CounteragentForm counteragentForm) {
         counteragentService.update(counteragentForm);
-        return new ModelAndView("redirect:/counteragents");
+        return new ModelAndView("counteragentsPage");
     }
 
 //    @RequestMapping(path = "/test", method = RequestMethod.GET)

@@ -1,10 +1,10 @@
-.main table {
+.main-container table {
     width: 100%;
     border-collapse: collapse;
     background: transparent;
 }
 
-.main th {
+.main-container th {
     padding: 12px 20px 5px;
     font-size: 18px;
     font-weight: bold;
@@ -15,25 +15,25 @@
     border-bottom-color: #1f1e1e;
 }
 
-.main td {
+.main-container td {
     padding: 12px 20px;
 }
 
-.main tr {
+.main-container tr {
     background-color: #eaeaea;
 }
 
-.main tr:nth-child(odd) {
+.main-container tr:nth-child(odd) {
     background-color: #fcfcfc;
 }
 
-.main tr:hover {
+.main-container tr:hover {
     background-color:  #e5e1e1;
 }
 
 /*КНОПКИ В ПОСЛЕДНЕЙ КОЛОНКЕ ТАБЛИЦЫ*/
 
-.main table button {
+.main-container table button {
     font-weight: bold;
     color: #566787;
     display: inline-block;
@@ -44,18 +44,18 @@
     text-align: right;
 }
 
-.main table button:hover {
+.main-container table button:hover {
     cursor: pointer;
 }
 
-.main table .edit-btn {
+.main-container table .edit-btn {
     color: #FFC107;
 }
 
-.main table .del-btn {
+.main-container table .del-btn {
     color: #F44336;
 }
 
-.main table td i {
+.main-container table td i {
     font-size: 19px;
 }

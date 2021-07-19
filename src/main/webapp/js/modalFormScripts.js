@@ -5,6 +5,7 @@ const modalDelId = document.getElementById("delByIdModal");
 const modalDelName = document.getElementById("delByNameModal");
 const modalCng = document.getElementById("cngModal");
 const modalSearchName = document.getElementById("searchByNameModal");
+const modalSearchBikNumber = document.getElementById("searchByBikAndAccNumber");
 
 //Закрытие форм
 function closeForm(modal) {
@@ -22,7 +23,7 @@ function clearInputs(modal) {
 //Задать значение атрибутам формы редактирования
 function changeInputValues(modal, attributes) {
     let inputs = modal.querySelectorAll('input[type="text"]');
-    for(let i = 0; i < inputs.length; i++) {
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = attributes[i];
     }
 }
@@ -36,23 +37,25 @@ function openAddForm(modal) {
 //Открытие формы для подтверждения удаления
 let delAgentId = "";
 
-//Нажатие кнопки подтверждения удаления
-function clickDelConfirm() {
-    document.location.href = "/counteragents/delete/" + delAgentId;
-}
-
 function openConfirmDelForm(agentId) {
     delAgentId = agentId;
     modalConfirmDel.style.display = "block";
 }
 
-//Открытие форму удаления по ID
+//Нажатие кнопки подтверждения удаления
+function clickDelConfirm() {
+    document.location.href = "/counteragents/delete/" + delAgentId;
+}
+
+//Открытие формы удаления по ID
 function openDelByIDForm() {
+    document.querySelector('input').value = "";
     modalDelId.style.display = "block";
 }
 
 //Открытие форму удаления по наименованию
-function openDelByNameForm() {
+function openDelByNameForm(modal) {
+    clearInputs(modal);
     modalDelName.style.display = "block";
 }
 
@@ -63,6 +66,13 @@ function openCngForm(modal, id, name, inn, kpp, accNumber, bik) {
 }
 
 //Открытие формы поиска по имени
-function openSearchByNameForm() {
+function openSearchByNameForm(modal) {
+    clearInputs(modal);
     modalSearchName.style.display = "block";
+}
+
+//Открытие формы поиска по БИК и номеру счёта
+function openSearchBikNumberForm(modal) {
+    clearInputs(modal);
+    modalSearchBikNumber.style.display = "block";
 }

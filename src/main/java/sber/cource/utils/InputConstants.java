@@ -7,6 +7,7 @@ public class InputConstants {
     /**
      * Константы с размерами каждого из полей контрагента
      */
+    private final int ID_MAX_VALUE = 1000;
     private final int NAME_LENGTH = 20;
     private final int INN_MAX_LENGTH = 12;
     private final int KPP_LENGTH = 9;

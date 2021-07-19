@@ -3,7 +3,7 @@ body {
     background: linear-gradient(45deg, #EECFBA, #C5DDE8);
 }
 
-.main {
+.main-container {
     overflow: hidden;
     width: 90%;
     margin: 120px auto;

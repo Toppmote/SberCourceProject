@@ -21,6 +21,7 @@ public class CounteragentCrudService {
 
     /**
      * Достать из БД всех контрагентов
+     *
      * @return список контрагентов
      */
     public List<Counteragent> findAll() {
@@ -29,26 +30,43 @@ public class CounteragentCrudService {
 
     /**
      * Сохранить контрагента
+     *
      * @param counteragent форма с данными контрагента
      */
     public void save(Counteragent counteragent) {
         counteragentRepository.save(counteragent);
     }
 
+    /**
+     * Удалить контрагента по ID
+     *
+     * @param id ID для удаления
+     */
     @Transactional
     public void deleteById(long id) {
         Optional<Counteragent> counteragentEntity = counteragentRepository.findById(id);
-        if(counteragentEntity.isPresent())
+        if (counteragentEntity.isPresent())
             counteragentRepository.deleteById(id);
     }
 
+    /**
+     * Удалить контрагента по имени
+     *
+     * @param name имя для удаления
+     */
     @Transactional
     public void deleteByName(String name) {
         Optional<Counteragent> counteragentEntity = counteragentRepository.findCounteragentByName(name);
-        if(counteragentEntity.isPresent())
+        if (counteragentEntity.isPresent())
             counteragentRepository.deleteByName(name);
     }
 
+    /**
+     * Обновить информацию о контрагенте
+     *
+     * @param counteragentForm Форма данных контрагента
+     */
+    @Transactional
     public void update(CounteragentForm counteragentForm) {
         Optional<Counteragent> counteragentEntity = counteragentRepository.findById(counteragentForm.getId());
         if (counteragentEntity.isPresent()) {
