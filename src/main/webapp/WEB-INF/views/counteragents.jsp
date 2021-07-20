@@ -17,7 +17,7 @@
 <div class="navbar">
     <ul>
         <li>
-            <button id="addButton" onclick="openAddForm(modalAdd)">Добавить</button>
+            <button id="addButton" onclick="openForm(modalAdd)">Добавить</button>
         </li>
         <li>
             <button>Удалить<i class="fa fa-caret-down"></i></button>
@@ -26,7 +26,7 @@
                     <button id="delId" onclick="openDelByIDForm(modalDelId)">По ID</button>
                 </li>
                 <li>
-                    <button id="delName" onclick="openDelByNameForm(modalDelName)">По наименованию</button>
+                    <button id="delName" onclick="openForm(modalDelName)">По наименованию</button>
                 </li>
             </ul>
         </li>
@@ -34,11 +34,11 @@
             <button>Поиск<i class="fa fa-caret-down"></i></button>
             <ul class="dropdown-menu">
                 <li>
-                    <button id="searchName" onclick="openSearchByNameForm(modalSearchName)">По наименованию</button>
+                    <button id="searchName" onclick="openForm(modalSearchName)">По наименованию</button>
                 </li>
                 <li>
                     <button id="searchAccNumberBik"
-                            onclick="openSearchBikNumberForm(modalSearchBikNumber)">По БИК-номер счёта
+                            onclick="openForm(modalSearchBikNumber)">По БИК-номер счёта
                     </button>
                 </li>
             </ul>

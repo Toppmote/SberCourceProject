@@ -7,6 +7,12 @@ const modalCng = document.getElementById("cngModal");
 const modalSearchName = document.getElementById("searchByNameModal");
 const modalSearchBikNumber = document.getElementById("searchByBikAndAccNumber");
 
+//Открытие форм
+function openForm(modal) {
+    clearInputs(modal);
+    modal.style.display = "block";
+}
+
 //Закрытие форм
 function closeForm(modal) {
     modal.style.display = "none";
@@ -28,12 +34,6 @@ function changeInputValues(modal, attributes) {
     }
 }
 
-//Открытие формы добавления
-function openAddForm(modal) {
-    clearInputs(modal);
-    modalAdd.style.display = "block";
-}
-
 //Открытие формы для подтверждения удаления
 let delAgentId = "";
 
@@ -53,26 +53,8 @@ function openDelByIDForm(modal) {
     modalDelId.style.display = "block";
 }
 
-//Открытие форму удаления по наименованию
-function openDelByNameForm(modal) {
-    clearInputs(modal);
-    modalDelName.style.display = "block";
-}
-
 //Открытие формы редактирования
 function openCngForm(modal, id, name, inn, kpp, accNumber, bik) {
     changeInputValues(modal, [id, name, inn, kpp, accNumber, bik]);
-    modalCng.style.display = "block";
-}
-
-//Открытие формы поиска по имени
-function openSearchByNameForm(modal) {
-    clearInputs(modal);
-    modalSearchName.style.display = "block";
-}
-
-//Открытие формы поиска по БИК и номеру счёта
-function openSearchBikNumberForm(modal) {
-    clearInputs(modal);
-    modalSearchBikNumber.style.display = "block";
+    modal.style.display = "block";
 }
