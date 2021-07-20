@@ -40,7 +40,7 @@
     font-size: 14px;
 }
 
-.navbar li button:hover {
+.navbar li button:hover, .navbar button:hover {
     background: #ddd;
     color: black;
     cursor: pointer;
@@ -57,5 +57,5 @@
 }
 
 .navbar i {
-    margin-left: 5px;
+    margin: 5px;
 }

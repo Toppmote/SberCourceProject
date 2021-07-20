@@ -48,8 +48,8 @@ function clickDelConfirm() {
 }
 
 //Открытие формы удаления по ID
-function openDelByIDForm() {
-    document.querySelector('input').value = "";
+function openDelByIDForm(modal) {
+    modal.querySelector('input[type="number"]').value = "";
     modalDelId.style.display = "block";
 }
 

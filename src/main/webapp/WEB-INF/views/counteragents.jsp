@@ -5,11 +5,11 @@
 <head>
     <title>Контрагенты</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="css/counteragents.css" rel="stylesheet" type="text/css">
-    <link href="css/navbarStyle.css" rel="stylesheet" type="text/css">
-    <link href="css/modalFormStyle.css" rel="stylesheet" type="text/css">
-    <link href="css/buttonsStyle.css" rel="stylesheet" type="text/css">
-    <link href="css/headingStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/counteragents.css" rel="stylesheet" type="text/css">
+    <link href="/css/navbarStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/modalFormStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/buttonsStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/headingStyle.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -91,7 +91,7 @@
     </div>
     <div id="searchByNameModal" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/search_result" method="post">
+            <form action="/counteragents/search_by_name" method="post">
                 <span class="close" onclick="closeForm(modalSearchName)">&times;</span>
                 <h2>Поиск по наименованию</h2>
                 <label>
@@ -104,7 +104,8 @@
     </div>
     <div id="searchByBikAndAccNumber" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/search_result" method="post">
+            <form action="/counteragents/search_by_bik_and_acc_number" method="post">
+                <input name="field" type="text" hidden ="hidden">
                 <span class="close" onclick="closeForm(modalSearchBikNumber)">&times;</span>
                 <h2>Поиск по паре номер счёта-БИК</h2>
                 <label>

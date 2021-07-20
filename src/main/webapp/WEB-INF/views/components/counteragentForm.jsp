@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<input type="number" name="id" hidden="hidden" value=""/>
+<input type="text" name="id" hidden="hidden" value=""/>
 <label>
     <input type="text" name="name" placeholder="Имя контрагента" required="required"
            maxlength="${constants.NAME_LENGTH}"/>

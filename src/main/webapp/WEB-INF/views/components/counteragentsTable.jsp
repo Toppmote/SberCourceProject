@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
-    <link href="css/tableStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/tableStyle.css" rel="stylesheet" type="text/css">
 </head>
 
 <table>
@@ -28,8 +28,8 @@
                         '${counteragent.kpp}', '${counteragent.accountNumber}', '${counteragent.bik}')"
                         class="edit-btn"><i class="fa fa-pencil"></i>
                 </button>
-                <button onclick="openConfirmDelForm(${counteragent.id})" class="del-btn"><i
-                        class="fa fa-remove"></i></button>
+                <button onclick="openConfirmDelForm(${counteragent.id})" class="del-btn">
+                    <i class="fa fa-remove"></i></button>
             </td>
         </tr>
     </c:forEach>
