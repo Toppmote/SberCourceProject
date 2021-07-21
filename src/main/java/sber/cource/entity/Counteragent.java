@@ -19,7 +19,6 @@ public class Counteragent {
 
     /**
      * ID контрагента.
-     * Используется для поиска по умолчанию
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,13 +54,18 @@ public class Counteragent {
     @Column(name = "BIK", length = 9, nullable = false)
     private String bik;
 
-    public static Counteragent from(CounteragentDto counteragentForm) {
+    /**
+     * Метод создания объекта контрагента из Data Transfer Object
+     * @param counteragentDto DTO контрагента
+     * @return объект контрагента
+     */
+    public static Counteragent from(CounteragentDto counteragentDto) {
         return Counteragent.builder()
-                .name(counteragentForm.getName())
-                .inn(counteragentForm.getInn())
-                .kpp(counteragentForm.getKpp())
-                .accountNumber(counteragentForm.getAccountNumber())
-                .bik(counteragentForm.getBik())
+                .name(counteragentDto.getName())
+                .inn(counteragentDto.getInn())
+                .kpp(counteragentDto.getKpp())
+                .accountNumber(counteragentDto.getAccountNumber())
+                .bik(counteragentDto.getBik())
                 .build();
     }
 
