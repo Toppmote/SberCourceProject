@@ -19,6 +19,15 @@ public class CounteragentSearchService {
     private CounteragentCrudRepository counteragentCrudRepository;
 
     /**
+     * Достать из БД всех контрагентов
+     *
+     * @return список контрагентов
+     */
+    public List<Counteragent> findAll() {
+        return (List<Counteragent>) counteragentCrudRepository.findAll();
+    }
+
+    /**
      * Поиск контрагента по имени
      * @param name имя
      * @return Экземпляр контрагента если он найден, null если не найден

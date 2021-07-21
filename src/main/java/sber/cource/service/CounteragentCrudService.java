@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sber.cource.entity.Counteragent;
-import sber.cource.entity.CounteragentForm;
+import sber.cource.models.CounteragentDto;
 import sber.cource.repository.CounteragentCrudRepository;
 
 import java.util.List;
@@ -18,15 +18,6 @@ public class CounteragentCrudService {
 
     @Autowired
     private CounteragentCrudRepository counteragentRepository;
-
-    /**
-     * Достать из БД всех контрагентов
-     *
-     * @return список контрагентов
-     */
-    public List<Counteragent> findAll() {
-        return (List<Counteragent>) counteragentRepository.findAll();
-    }
 
     /**
      * Сохранить контрагента
@@ -67,7 +58,7 @@ public class CounteragentCrudService {
      * @param counteragentForm Форма данных контрагента
      */
     @Transactional
-    public void update(CounteragentForm counteragentForm) {
+    public void update(CounteragentDto counteragentForm) {
         Optional<Counteragent> counteragentEntity = counteragentRepository.findById(counteragentForm.getId());
         if (counteragentEntity.isPresent()) {
             Counteragent editedCounteragent = counteragentEntity.get();

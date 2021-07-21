@@ -1,6 +1,7 @@
 package sber.cource.entity;
 
 import lombok.*;
+import sber.cource.models.CounteragentDto;
 
 import javax.persistence.*;
 
@@ -54,7 +55,7 @@ public class Counteragent {
     @Column(name = "BIK", length = 9, nullable = false)
     private String bik;
 
-    public static Counteragent from(CounteragentForm counteragentForm) {
+    public static Counteragent from(CounteragentDto counteragentForm) {
         return Counteragent.builder()
                 .name(counteragentForm.getName())
                 .inn(counteragentForm.getInn())
