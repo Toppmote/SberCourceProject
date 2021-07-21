@@ -6,7 +6,7 @@ import sber.cource.models.CounteragentDto;
 import javax.persistence.*;
 
 /**
- * Класс, описывающий контрагента.
+ * Сущность, описывающая контрагента.
  * Связан с таблицей counteragents
  */
 @Data

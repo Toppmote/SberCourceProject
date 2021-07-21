@@ -5,6 +5,9 @@ import sber.cource.validation.annotations.InnCheck;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Класс-валидатор для валидации ИНН
+ */
 public class InnCheckValidator implements ConstraintValidator<InnCheck, String> {
 
     /**

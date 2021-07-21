@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Аннотация для валидации ИНН
+ */
 @Target(FIELD)
 @Retention(RUNTIME)
 @Constraint(validatedBy = InnCheckValidator.class)

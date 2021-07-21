@@ -11,6 +11,12 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class AccNumberAndBikCheckValidator implements ConstraintValidator<AccNumberAndBikCheck, CounteragentDto> {
 
+    /**
+     * Метод валидации пары номер счёта - БИК
+     * @param value DTO контрагента, из которго берудся БИК и номер счёта
+     * @param context
+     * @return true - если номер счёта и БИК корректны, false - если некорректы
+     */
     @Override
     public boolean isValid(CounteragentDto value, ConstraintValidatorContext context) {
         String accountNumber = value.getAccountNumber();

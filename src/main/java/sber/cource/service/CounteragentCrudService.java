@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sber.cource.entity.Counteragent;
 import sber.cource.models.CounteragentDto;
 import sber.cource.repository.CounteragentCrudRepository;
-
-import java.util.List;
 import java.util.Optional;
 
 /**

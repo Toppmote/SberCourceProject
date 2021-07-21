@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Аннотация для валидации пары БИК + номер счёта
+ */
 @Target(TYPE)
 @Retention(RUNTIME)
 @Constraint(validatedBy = AccNumberAndBikCheckValidator.class)

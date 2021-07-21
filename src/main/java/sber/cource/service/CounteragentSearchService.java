@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sber.cource.entity.Counteragent;
 import sber.cource.repository.CounteragentCrudRepository;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Сервис для работы с поиском контрагентов
