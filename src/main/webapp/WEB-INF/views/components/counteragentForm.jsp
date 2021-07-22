@@ -1,22 +1,47 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<input type="text" name="id" hidden="hidden" value=""/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<head>
+    <link href="/css/errorStyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<input type="text" name="id" hidden="hidden" value="${counteragentErrForm.id}"/>
 <label>
     <input type="text" name="name" placeholder="Имя контрагента" required="required"
-           maxlength="${constants.NAME_LENGTH}"/>
+           value="${counteragentErrForm.name}" maxlength="${constants.NAME_LENGTH}"/>
+    <c:if test="${errorMessages.containsKey('name')}">
+        <p class="myError">${errorMessages.get('name')}</p>
+    </c:if>
 </label>
 <label>
     <input type="text" name="inn" placeholder="ИНН" required="required"
-           maxlength="${constants.INN_MAX_LENGTH}"/>
+           value="${counteragentErrForm.inn}" maxlength="${constants.INN_MAX_LENGTH}"/>
+    <c:if test="${errorMessages.containsKey('inn')}">
+        <p class="myError">${errorMessages.get('inn')}</p>
+    </c:if>
 </label>
 <label>
     <input type="text" name="kpp" placeholder="КПП" required="required"
-           maxlength="${constants.KPP_LENGTH}"/>
+           value="${counteragentErrForm.kpp}" maxlength="${constants.KPP_LENGTH}"/>
+    <c:if test="${errorMessages.containsKey('kpp')}">
+        <p class="myError">${errorMessages.get('kpp')}</p>
+    </c:if>
 </label>
 <label>
     <input type="text" name="accountNumber" placeholder="Номер счёта"
-           required="required" maxlength="${constants.ACCOUNT_NUMBER_LENGTH}"/>
+           value="${counteragentErrForm.accountNumber}" required="required"
+           maxlength="${constants.ACCOUNT_NUMBER_LENGTH}"/>
+    <c:if test="${errorMessages.containsKey('accountNumber')}">
+        <p class="myError">${errorMessages.get('accountNumber')}</p>
+    </c:if>
 </label>
 <label>
     <input type="text" name="bik" placeholder="БИК" required="required"
-           maxlength="${constants.BIK_LENGTH}"/>
+           value="${counteragentErrForm.bik}" maxlength="${constants.BIK_LENGTH}"/>
+    <c:if test="${errorMessages.containsKey('bik')}">
+        <p class="myError">${errorMessages.get('bik')}</p>
+    </c:if>
+    <c:if test="${errorMessages.containsKey('accNumberAndBik')}">
+        <p class="myError">${errorMessages.get('accNumberAndBik')}</p>
+    </c:if>
 </label>

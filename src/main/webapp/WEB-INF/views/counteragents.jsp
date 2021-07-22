@@ -63,7 +63,7 @@
     <jsp:include page="components/delConfirmModalForm.jsp"/>
     <div id="delByIdModal" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/delete" method="post">
+            <form action="/counteragents/delete/by_id" method="post">
                 <span class="close" onclick="closeForm(modalDelId)">&times;</span>
                 <h2>Удаление по ID</h2>
                 <label>
@@ -76,7 +76,7 @@
     </div>
     <div id="delByNameModal" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/delete" method="post">
+            <form action="/counteragents/delete/by_name" method="post">
                 <span class="close" onclick="closeForm(modalDelName)">&times;</span>
                 <h2>Удаление по наименованию</h2>
                 <label>
@@ -89,7 +89,7 @@
     </div>
     <div id="searchByNameModal" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/search_by_name" method="post">
+            <form action="/counteragents/search/by_name" method="post">
                 <span class="close" onclick="closeForm(modalSearchName)">&times;</span>
                 <h2>Поиск по наименованию</h2>
                 <label>
@@ -102,8 +102,8 @@
     </div>
     <div id="searchByBikAndAccNumber" class="modal">
         <div class="modal-content">
-            <form action="/counteragents/search_by_bik_and_acc_number" method="post">
-                <input name="field" type="text" hidden ="hidden">
+            <form action="/counteragents/search/by_bik_and_acc_number" method="post">
+                <input name="field" type="text" hidden="hidden">
                 <span class="close" onclick="closeForm(modalSearchBikNumber)">&times;</span>
                 <h2>Поиск по паре номер счёта-БИК</h2>
                 <label>
@@ -121,6 +121,21 @@
 </div>
 
 <script src="<c:url value="/js/modalFormScripts.js"/>"></script>
+
+<c:choose>
+    <c:when test="${error.equals(errorValues[1])}">
+        <script>
+            modalAdd.style.display = "block";
+            ${errorMessages.clear()}
+        </script>
+    </c:when>
+    <c:when test="${error.equals(errorValues[2])}">
+        <script>
+            modalCng.style.display = "block";
+            ${errorMessages.clear()}
+        </script>
+    </c:when>
+</c:choose>
 
 </body>
 

@@ -16,6 +16,7 @@ function openForm(modal) {
 //Закрытие форм
 function closeForm(modal) {
     modal.style.display = "none";
+    document.location.reload();
 }
 
 //Очистить все поля формы
