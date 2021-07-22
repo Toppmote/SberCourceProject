@@ -1,6 +1,7 @@
 package sber.cource.controller;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Контроллер для добавления, удаления и редактирования контрагентов
  */
+@Slf4j
 @RestController
 @RequestMapping("counteragents")
 public class CounteragentsController {
@@ -63,17 +65,21 @@ public class CounteragentsController {
     @ApiOperation(value = "Load page with counteragents",
             notes = "This method is loading page with counteragents table")
     @GetMapping("")
-    public ModelAndView getAllCounteragents(Model model) {
+    public ModelAndView loadMainPAge(Model model) {
+        log.info("GET - /counteragents\tENTERED LOAD MAIN PAGE METHOD");
         List<CounteragentDao> counteragentList = counteragentSearchService.findAll();
         ModelAndView modelAndView = new ModelAndView("counteragents");
-        if (errorMessages.isEmpty())
+        if (errorMessages.isEmpty()) {
+            log.info("NO ERRORS");
             error = ErrorValue.NO_ERRORS.toString();
+        }
         model.addAttribute("error", error);
         model.addAttribute("counteragentsList", counteragentList);
         model.addAttribute("counteragentErrForm", counteragentErrForm);
         model.addAttribute("errorValues", errorValues);
         model.addAttribute("constants", new InputConstants());
         model.addAttribute("errorMessages", errorMessages);
+        log.info("OPENED MAIN PAGE WITH 6 PARAMETERS");
         return modelAndView;
     }
 
@@ -88,15 +94,22 @@ public class CounteragentsController {
     @PostMapping("")
     public ModelAndView addCounteragent(@Valid CounteragentDto counteragentForm,
                                         BindingResult bindingResult) {
+        log.info("POST - /counteragents\tENTERED ADD METHOD");
         if (bindingResult.hasErrors()) {
+            log.error("ADD FORM HAS ERRORS:");
+            for (var error : bindingResult.getAllErrors()) {
+                log.error(error.toString());
+            }
             counteragentErrForm = counteragentForm;
             error = ErrorValue.ADD_ERRORS.toString();
             errorMessages = putErrorsInMap(bindingResult);
+            log.info("REDIRECTING TO MAIN PAGE");
             return new ModelAndView("redirect:/counteragents");
         }
         errorMessages = null;
         CounteragentDao newCounteragent = CounteragentDao.from(counteragentForm);
         counteragentCrudService.save(newCounteragent);
+        log.info("ADD COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
     }
 
@@ -110,7 +123,9 @@ public class CounteragentsController {
             notes = "This method removes counteragent when the user clicks a button in the table")
     @GetMapping("/delete/{id}")
     public ModelAndView deleteCounteragentById(@PathVariable("id") long id) {
+        log.info("GET - /counteragents/delete/" + id + "\tENTERED DELETE BY TABLE BUTTON METHOD");
         counteragentCrudService.deleteById(id);
+        log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
     }
 
@@ -124,10 +139,15 @@ public class CounteragentsController {
             notes = "This method removes counteragent by id or name")
     @PostMapping("/delete/{field}")
     public ModelAndView deleteCounteragent(CounteragentDto counteragentForm, @PathVariable String field) {
-        if (field.equals("by_id"))
+        log.info("POST - /counteragents/delete/" + field + "\tENTERED DELETE METHOD");
+        if (field.equals("by_id")) {
             counteragentCrudService.deleteById(counteragentForm.getId());
-        else if (field.equals("by_name"))
+            log.info("DELETE BY ID");
+        } else if (field.equals("by_name")) {
             counteragentCrudService.deleteByName(counteragentForm.getName());
+            log.info("DELETE BY NAME");
+        }
+        log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
     }
 
@@ -141,25 +161,37 @@ public class CounteragentsController {
     @ApiOperation(value = "Update counteragent",
             notes = "This method updates counteragent")
     public ModelAndView updateCounteragent(@Valid CounteragentDto counteragentForm, BindingResult bindingResult) {
+        log.info("POST - /counteragents/update\tENTERED UPDATE METHOD");
         BindingResult newBindingResults = new BeanPropertyBindingResult(counteragentForm, "counteragentForm");
         CounteragentDao counteragent = counteragentSearchService.findByName(counteragentForm.getName());
         if (counteragent != null) {
+            log.info("COUNTERAGENT WITH " + counteragentForm.getName() + " IS FOUND");
             if (counteragent.getId() == counteragentForm.getId()) {
+                log.info("THIS IS SAME COUNTERAGENT");
                 List<ObjectError> errorsList = bindingResult.getFieldErrors().stream()
                         .filter(err -> !err.getField().equals("name")).collect(Collectors.toList());
                 errorsList.add(bindingResult.getGlobalError());
                 for (ObjectError error : errorsList)
                     newBindingResults.addError(error);
             } else newBindingResults = bindingResult;
-        } else newBindingResults = bindingResult;
+        } else {
+            log.info("COUNTERAGENT WITH " + counteragentForm.getName() + " NOT FOUND");
+            newBindingResults = bindingResult;
+        }
         if (newBindingResults.hasErrors()) {
+            log.error("UPDATE FORM HAS ERRORS:");
+            for (var error : bindingResult.getAllErrors()) {
+                log.error(error.toString());
+            }
             error = ErrorValue.CHANGE_ERRORS.toString();
             counteragentErrForm = counteragentForm;
             errorMessages = putErrorsInMap(newBindingResults);
+            log.info("REDIRECTING TO MAIN PAGE");
             return new ModelAndView("redirect:/counteragents");
         }
         errorMessages = null;
         counteragentCrudService.update(counteragentForm);
+        log.info("UPDATE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
     }
 
