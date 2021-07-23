@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sber.cource.entity.CounteragentEntity;
 import sber.cource.dto.CounteragentDto;
 import sber.cource.repository.CounteragentCrudRepository;
+
 import java.util.Optional;
 
 /**
@@ -40,12 +41,13 @@ public class CounteragentCrudService {
      * @param id ID для удаления
      */
     @Transactional
-    public void deleteById(long id) {
+    public boolean deleteById(long id) {
         Optional<CounteragentEntity> counteragentEntity = counteragentRepository.findById(id);
         if (counteragentEntity.isPresent()) {
             counteragentRepository.deleteById(id);
             log.info("DELETE BY ID METHOD DONE");
-        }
+            return true;
+        } else return false;
     }
 
     /**
@@ -54,12 +56,13 @@ public class CounteragentCrudService {
      * @param name имя для удаления
      */
     @Transactional
-    public void deleteByName(String name) {
+    public boolean deleteByName(String name) {
         Optional<CounteragentEntity> counteragentEntity = counteragentRepository.findCounteragentEntityByName(name);
         if (counteragentEntity.isPresent()) {
             counteragentRepository.deleteByName(name);
             log.info("DELETE BY NAME METHOD DONE");
-        }
+            return true;
+        } else return false;
     }
 
     /**

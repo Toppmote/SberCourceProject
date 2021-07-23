@@ -1,7 +1,6 @@
 package sber.cource.entity;
 
 import lombok.*;
-import sber.cource.dto.CounteragentDto;
 
 import javax.persistence.*;
 

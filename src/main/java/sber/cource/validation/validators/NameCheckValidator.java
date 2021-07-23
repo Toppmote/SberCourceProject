@@ -16,8 +16,7 @@ public class NameCheckValidator implements ConstraintValidator<NameCheck, String
     private CounteragentSearchService counteragentSearchService;
 
     /**
-     *
-     * @param value Имя контрагента
+     * @param value   Имя контрагента
      * @param context контекстные данные и операции при применении данного валидатора
      * @return true - если имя уникально, false - если нет
      */

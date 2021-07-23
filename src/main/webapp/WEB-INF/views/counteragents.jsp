@@ -70,6 +70,9 @@
                     <input type="number" name="id" placeholder="ID контрагента" required="required" min="1"
                            max="${constants.ID_MAX_VALUE}"/>
                 </label>
+                <c:if test="${errorMessages.containsKey('deleteById')}">
+                    <p class="myError">${errorMessages.get('deleteById')}</p>
+                </c:if>
                 <jsp:include page="components/delButton.jsp"/>
             </form>
         </div>
@@ -83,6 +86,9 @@
                     <input type="text" name="name" placeholder="Имя контрагента" required="required" value=""
                            maxlength="${constants.NAME_LENGTH}"/>
                 </label>
+                <c:if test="${errorMessages.containsKey('deleteByName')}">
+                    <p class="myError">${errorMessages.get('deleteByName')}</p>
+                </c:if>
                 <jsp:include page="components/delButton.jsp"/>
             </form>
         </div>
@@ -132,6 +138,18 @@
     <c:when test="${error.equals(errorValues[2])}">
         <script>
             modalCng.style.display = "block";
+            ${errorMessages.clear()}
+        </script>
+    </c:when>
+    <c:when test="${error.equals(errorValues[3])}">
+        <script>
+            modalDelId.style.display = "block";
+            ${errorMessages.clear()}
+        </script>
+    </c:when>
+    <c:when test="${error.equals(errorValues[4])}">
+        <script>
+            modalDelName.style.display = "block";
             ${errorMessages.clear()}
         </script>
     </c:when>

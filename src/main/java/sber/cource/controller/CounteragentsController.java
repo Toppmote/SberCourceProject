@@ -1,6 +1,8 @@
 package sber.cource.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("counteragents")
+@Api(tags = "Crud контроллер")
 public class CounteragentsController {
 
     @Autowired
@@ -138,11 +141,21 @@ public class CounteragentsController {
     public ModelAndView deleteCounteragent(CounteragentDto counteragentForm, @PathVariable String field) {
         log.info("POST - /counteragents/delete/" + field + "\tENTERED DELETE METHOD");
         if (field.equals("by_id")) {
-            counteragentCrudService.deleteById(counteragentForm.getId());
-            log.info("DELETE BY ID");
+            if (counteragentCrudService.deleteById(counteragentForm.getId()))
+                log.info("DELETE BY ID");
+            else {
+                errorMessages.put("deleteById", "Контрагент с введённым ID не найден");
+                error = ErrorValue.DELETE_BY_ID_ERRORS.toString();
+                log.info("COUNTERAGENT WITH THAT ID NOT FOUND");
+            }
         } else if (field.equals("by_name")) {
-            counteragentCrudService.deleteByName(counteragentForm.getName());
-            log.info("DELETE BY NAME");
+            if (counteragentCrudService.deleteByName(counteragentForm.getName()))
+                log.info("DELETE BY NAME");
+            else {
+                errorMessages.put("deleteByName", "Контрагент с введённым именем не найден");
+                error = ErrorValue.DELETE_BY_NAME_ERRORS.toString();
+                log.info("COUNTERAGENT WITH THAT NAME NOT FOUND");
+            }
         }
         log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
@@ -167,7 +180,7 @@ public class CounteragentsController {
                 log.info("THIS IS SAME COUNTERAGENT");
                 List<ObjectError> errorsList = bindingResult.getFieldErrors().stream()
                         .filter(err -> !err.getField().equals("name")).collect(Collectors.toList());
-                if(bindingResult.hasGlobalErrors())
+                if (bindingResult.hasGlobalErrors())
                     errorsList.add(bindingResult.getGlobalError());
                 for (ObjectError error : errorsList)
                     newBindingResults.addError(error);

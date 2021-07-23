@@ -12,20 +12,23 @@ import java.util.Optional;
 public interface CounteragentCrudRepository extends JpaRepository<CounteragentEntity, Long> {
     /**
      * Метод удаления контрагента по имени
+     *
      * @param name имя контрагента для удаления
      */
     void deleteByName(String name);
 
     /**
      * Метод поиска контрагента по имени
+     *
      * @param name имя контрагента для поиска
      */
     Optional<CounteragentEntity> findCounteragentEntityByName(String name);
 
     /**
      * Метод поиска контрагента по БИК + номеру счёта
+     *
      * @param accountNumber номер счёта
-     * @param bik БИК
+     * @param bik           БИК
      * @return список найденных контрагентов
      */
     Optional<CounteragentEntity> findCounteragentEntityByAccountNumberAndBik(String accountNumber, String bik);

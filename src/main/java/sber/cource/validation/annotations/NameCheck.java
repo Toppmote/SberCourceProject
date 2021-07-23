@@ -21,8 +21,8 @@ public @interface NameCheck {
 
     String message() default "{InnCheck.invalid}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
 }
