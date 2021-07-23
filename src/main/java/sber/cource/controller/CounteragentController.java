@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -95,7 +94,7 @@ public class CounteragentController {
      */
     @ApiOperation(value = "Сохранить нового контрагента",
             notes = "Данный метод сохраняет нового контрагента, если введены корректные данные. "
-            + "При вооде некорректных данных в форме появятся ошибки соответствующие полю")
+                    + "При вооде некорректных данных в форме появятся ошибки соответствующие полю")
     @PostMapping("")
     public ModelAndView addCounteragent(@ModelAttribute("counteragentForm") @Valid CounteragentDto counteragentForm,
                                         BindingResult bindingResult) {

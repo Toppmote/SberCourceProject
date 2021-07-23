@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import sber.cource.controller.CounteragentSearchController;
 import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
-import sber.cource.service.CounteragentSearchService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,6 +62,7 @@ public class CounteragentSearchControllerTest {
 
     /**
      * Тест поиска контрагента по имени
+     *
      * @throws Exception исключение
      */
     @Test
@@ -75,6 +75,7 @@ public class CounteragentSearchControllerTest {
 
     /**
      * Тест поиска контрагента по паре номер счёта + БИК
+     *
      * @throws Exception исключение
      */
     @Test
