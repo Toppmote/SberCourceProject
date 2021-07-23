@@ -1,6 +1,6 @@
 package sber.cource.validation.validators;
 
-import sber.cource.models.CounteragentDto;
+import sber.cource.dto.CounteragentDto;
 import sber.cource.validation.annotations.AccNumberAndBikCheck;
 
 import javax.validation.ConstraintValidator;
@@ -14,7 +14,7 @@ public class AccNumberAndBikCheckValidator implements ConstraintValidator<AccNum
     /**
      * Метод валидации пары номер счёта - БИК
      * @param value DTO контрагента, из которго берудся БИК и номер счёта
-     * @param context
+     * @param context предоставляет контекстные данные и операции при применении данного валидатора
      * @return true - если номер счёта и БИК корректны, false - если некорректы
      */
     @Override
