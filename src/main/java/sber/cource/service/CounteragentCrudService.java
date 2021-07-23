@@ -74,13 +74,7 @@ public class CounteragentCrudService {
     public void update(CounteragentDto counteragentForm) {
         Optional<CounteragentEntity> counteragentEntity = counteragentRepository.findById(counteragentForm.getId());
         if (counteragentEntity.isPresent()) {
-            //CounteragentEntity editedCounteragent = counteragentEntity.get();
             CounteragentEntity editedCounteragent = mapperFacade.map(counteragentForm, CounteragentEntity.class);
-//            editedCounteragent.setName(counteragentForm.getName());
-//            editedCounteragent.setInn(counteragentForm.getInn());
-//            editedCounteragent.setKpp(counteragentForm.getKpp());
-//            editedCounteragent.setAccountNumber(counteragentForm.getAccountNumber());
-//            editedCounteragent.setBik(counteragentForm.getBik());
             counteragentRepository.save(editedCounteragent);
             log.info("UPDATE METHOD DONE WITH ORIKA MAPPING");
         }

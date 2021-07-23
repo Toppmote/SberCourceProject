@@ -4,9 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sber.cource.dto.CounteragentDto;
 import sber.cource.service.CounteragentSearchService;
@@ -20,6 +18,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
+@RequestMapping("counteragents")
 @Api(tags = "Контроллер для поиска")
 public class CounteragentsSearchController {
 
@@ -34,7 +33,7 @@ public class CounteragentsSearchController {
      * @param field            параметр поиска
      * @return объект для перенаправления на страницу результатов поиска
      */
-    @PostMapping("counteragents/search/{field}")
+    @PostMapping("/search/{field}")
     @ApiOperation(value = "Поиск контрагентов по имени или по паре БИК + номер счёта",
             notes = "Данный метод ищет контрагентов в зависимости от переданных параметров" +
                     ". Параметры передаются в форме, и, в зависимости от динамической ссылки," +
