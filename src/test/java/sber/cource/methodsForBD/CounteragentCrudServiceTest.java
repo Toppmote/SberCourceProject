@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import sber.cource.dao.CounteragentCrudRepository;
 import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
@@ -58,6 +59,7 @@ public class CounteragentCrudServiceTest {
      * Тест сохранения нескольких контрагентов
      */
     @Test
+    @Transactional
     public void saveTest() {
         for (int i = 0; i < 3; i++)
             counteragentCrudService.save(CounteragentDto.builder()
@@ -77,6 +79,7 @@ public class CounteragentCrudServiceTest {
      * Тест удаления контрагента по ID
      */
     @Test
+    @Transactional
     public void deleteByIdTest() {
         counteragentCrudService.deleteById(counteragentCrudRepository
                 .findCounteragentEntityByName("Paul").get().getId());
@@ -87,6 +90,7 @@ public class CounteragentCrudServiceTest {
      * Тест удаления контрагента по имени
      */
     @Test
+    @Transactional
     public void deleteByNameTest() {
         counteragentCrudService.deleteByName(counteragentCrudRepository
                 .findCounteragentEntityByName("Paul").get().getName());
@@ -97,6 +101,7 @@ public class CounteragentCrudServiceTest {
      * Тест редактирования записей контрагента
      */
     @Test
+    @Transactional
     public void updateTest() {
         Long id = counteragentCrudRepository.findCounteragentEntityByName("Paul").get().getId();
         counteragentDto.setId(id);
@@ -111,6 +116,7 @@ public class CounteragentCrudServiceTest {
      * Тест метода удаления всех контрагентов
      */
     @Test
+    @Transactional
     public void deleteAllTest() {
         for (int i = 0; i < 3; i++)
             counteragentCrudService.save(CounteragentDto.builder()

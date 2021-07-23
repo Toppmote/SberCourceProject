@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import sber.cource.controller.CounteragentController;
 import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
@@ -87,6 +88,7 @@ public class CounteragentControllerTest {
      * @throws Exception исключение
      */
     @Test
+    @Transactional
     public void addCounteragentTest() throws Exception {
         mvc.perform(post("/counteragents")
                 .contentType("application/x-www-form-urlencoded")
@@ -106,6 +108,7 @@ public class CounteragentControllerTest {
      * @throws Exception исключение
      */
     @Test
+    @Transactional
     public void deleteCounteragentByTableButtonTest() throws Exception {
         counteragentCrudService.save(counteragentDto);
         Long id = counteragentSearchService.findByName("Paul").getId();
@@ -121,6 +124,7 @@ public class CounteragentControllerTest {
      * @throws Exception исключение
      */
     @Test
+    @Transactional
     public void deleteCounteragentByIdTest() throws Exception {
         counteragentCrudService.save(counteragentDto);
         Long id = counteragentSearchService.findByName("Paul").getId();
@@ -137,6 +141,7 @@ public class CounteragentControllerTest {
      * @throws Exception исключение
      */
     @Test
+    @Transactional
     public void deleteCounteragentByNameTest() throws Exception {
         counteragentCrudService.save(counteragentDto);
         mvc.perform(post("/counteragents/delete/by_name")
@@ -152,6 +157,7 @@ public class CounteragentControllerTest {
      * @throws Exception исключение
      */
     @Test
+    @Transactional
     public void updateCounteragentTest() throws Exception {
         counteragentCrudService.save(counteragentDto);
         String id = counteragentSearchService.findByName("Paul").getId().toString();

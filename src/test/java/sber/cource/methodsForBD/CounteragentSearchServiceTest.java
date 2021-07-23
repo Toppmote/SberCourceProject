@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
 import sber.cource.service.CounteragentSearchService;
@@ -57,6 +58,7 @@ public class CounteragentSearchServiceTest {
      * Тест на взятие всех записей из БД
      */
     @Test
+    @Transactional
     public void findAllTest() {
         final int COUNTERAGENTS_COUNT = 11;
         for (int i = 0; i < COUNTERAGENTS_COUNT; i++) {
@@ -76,6 +78,7 @@ public class CounteragentSearchServiceTest {
      * Тест на поиск контрагента по имени
      */
     @Test
+    @Transactional
     public void findByNameTest() {
         counteragentCrudService.save(counteragentForTest);
         assertNotNull(counteragentSearchService.findByName(counteragentForTest.getName()));
@@ -85,6 +88,7 @@ public class CounteragentSearchServiceTest {
      * Тест на поиск контрагента по паре БИК + номер счёта
      */
     @Test
+    @Transactional
     public void findByBikAndAccNumberTest() {
         counteragentCrudService.save(counteragentForTest);
         assertNotNull(counteragentSearchService.findByBikAndAccNumber(counteragentForTest.getBik(),
