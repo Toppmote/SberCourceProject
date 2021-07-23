@@ -9,6 +9,7 @@ import sber.cource.validation.annotations.InnCheck;
 import sber.cource.validation.annotations.NameCheck;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -44,7 +45,7 @@ public class CounteragentDto {
      * КПП контрагента
      */
     @NotNull(message = "КПП не должен быть пустым")
-    @Size(min = 9, max = 9, message = "КПП содержит ровно 9 цифр")
+    @Pattern(regexp = "\\d{9}", message = "КПП содержит ровно 9 цифр")
     private String kpp;
 
     /**
