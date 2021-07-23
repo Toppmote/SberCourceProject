@@ -11,7 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import sber.cource.dto.CounteragentDto;
+import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
 import sber.cource.service.CounteragentSearchService;
 import sber.cource.utils.ErrorValue;
@@ -21,6 +21,8 @@ import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static sber.cource.utils.UtilMethods.putErrorsInMap;
+
 /**
  * Контроллер для добавления, удаления и редактирования контрагентов
  */
@@ -28,7 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("counteragents")
 @Api(tags = "Crud контроллер для таблицы контрагентов")
-public class CounteragentsController {
+public class CounteragentController {
 
     @Autowired
     private CounteragentCrudService counteragentCrudService;
@@ -67,7 +69,7 @@ public class CounteragentsController {
             notes = "Данный метод получает всех контрагентов из базы и передает их на страницу с таблицей контрагентов." +
                     "Также в этом методе передаются параметры для вывода ошибок и констант для форм")
     @GetMapping("")
-    public ModelAndView loadMainPAge(Model model) {
+    public ModelAndView loadMainPage(Model model) {
         log.info("GET - /counteragents\tENTERED LOAD MAIN PAGE METHOD");
         List<CounteragentDto> counteragentList = counteragentSearchService.findAll();
         ModelAndView modelAndView = new ModelAndView("counteragents");
@@ -95,7 +97,7 @@ public class CounteragentsController {
             notes = "Данный метод сохраняет нового контрагента, если введены корректные данные. "
             + "При вооде некорректных данных в форме появятся ошибки соответствующие полю")
     @PostMapping("")
-    public ModelAndView addCounteragent(@Valid CounteragentDto counteragentForm,
+    public ModelAndView addCounteragent(@ModelAttribute("counteragentForm") @Valid CounteragentDto counteragentForm,
                                         BindingResult bindingResult) {
         log.info("POST - /counteragents\tENTERED ADD METHOD");
         if (bindingResult.hasErrors()) {
@@ -122,7 +124,7 @@ public class CounteragentsController {
      */
     @ApiOperation(value = "Удалить контрагента по нажатию на кнопку в таблице")
     @GetMapping("/delete/{id}")
-    public ModelAndView deleteCounteragentById(@PathVariable("id") long id) {
+    public ModelAndView deleteCounteragentByTableButton(@PathVariable("id") long id) {
         log.info("GET - /counteragents/delete/" + id + "\tENTERED DELETE BY TABLE BUTTON METHOD");
         counteragentCrudService.deleteById(id);
         log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
@@ -173,7 +175,8 @@ public class CounteragentsController {
     @ApiOperation(value = "Редактирование контрагента",
             notes = "Данный метод позволяет редактировать контрагента, если были введены корректные данные. " +
                     "При вооде некорректных данных в форме появятся ошибки соответствующие полю")
-    public ModelAndView updateCounteragent(@Valid CounteragentDto counteragentForm, BindingResult bindingResult) {
+    public ModelAndView updateCounteragent(@Valid CounteragentDto counteragentForm,
+                                           BindingResult bindingResult) {
         log.info("POST - /counteragents/update\tENTERED UPDATE METHOD");
         BindingResult newBindingResults = new BeanPropertyBindingResult(counteragentForm, "counteragentForm");
         CounteragentDto counteragent = counteragentSearchService.findByName(counteragentForm.getName());
@@ -206,23 +209,6 @@ public class CounteragentsController {
         counteragentCrudService.update(counteragentForm);
         log.info("UPDATE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
-    }
-
-    /**
-     * Метод, возвращающий все ошибки валидации в виде словаря, где ключ - поле, а значение - сообщение об ошибке
-     *
-     * @param bindingResult результаты валидации
-     * @return Словарь, где ключ - поле, а значение - сообщение об ошибке
-     */
-    private Map<String, String> putErrorsInMap(BindingResult bindingResult) {
-        var errorsMap = bindingResult.getFieldErrors()
-                .stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-        if (bindingResult.hasGlobalErrors() &&
-                (!errorsMap.containsKey("accountNumber") || !errorsMap.containsKey("bik"))) {
-            var globalError = bindingResult.getGlobalError();
-            errorsMap.put("accNumberAndBik", globalError.getDefaultMessage());
-        }
-        return errorsMap;
     }
 
 }

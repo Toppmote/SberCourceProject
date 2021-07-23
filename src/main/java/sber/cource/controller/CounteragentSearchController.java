@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import sber.cource.dto.CounteragentDto;
+import sber.cource.model.CounteragentDto;
 import sber.cource.service.CounteragentSearchService;
 import sber.cource.utils.InputConstants;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("counteragents")
 @Api(tags = "Контроллер для поиска")
-public class CounteragentsSearchController {
+public class CounteragentSearchController {
 
     @Autowired
     private CounteragentSearchService counteragentSearchService;
@@ -38,7 +38,7 @@ public class CounteragentsSearchController {
             notes = "Данный метод ищет контрагентов в зависимости от переданных параметров" +
                     ". Параметры передаются в форме, и, в зависимости от динамической ссылки," +
                     " происходит поиск по выбранному параметру")
-    public ModelAndView searchCounteragents(CounteragentDto counteragentForm, @PathVariable String field) {
+    public ModelAndView searchCounteragent(CounteragentDto counteragentForm, @PathVariable String field) {
         log.info("POST - /counteragents/search/" + field + "\tENTERED LOAD SEARCH PAGE METHOD");
         List<CounteragentDto> counteragentList = new ArrayList<>();
         if (field.equals("by_name")) {

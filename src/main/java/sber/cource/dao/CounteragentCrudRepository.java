@@ -1,9 +1,8 @@
-package sber.cource.repository;
+package sber.cource.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import sber.cource.entity.CounteragentEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 /**

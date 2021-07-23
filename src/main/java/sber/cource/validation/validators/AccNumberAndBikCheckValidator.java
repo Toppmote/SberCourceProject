@@ -1,6 +1,6 @@
 package sber.cource.validation.validators;
 
-import sber.cource.dto.CounteragentDto;
+import sber.cource.model.CounteragentDto;
 import sber.cource.validation.annotations.AccNumberAndBikCheck;
 
 import javax.validation.ConstraintValidator;

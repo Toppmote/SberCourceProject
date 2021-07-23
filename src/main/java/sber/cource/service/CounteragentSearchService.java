@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sber.cource.dto.CounteragentDto;
+import sber.cource.model.CounteragentDto;
 import sber.cource.entity.CounteragentEntity;
-import sber.cource.repository.CounteragentCrudRepository;
+import sber.cource.dao.CounteragentCrudRepository;
 
 import java.util.List;
 

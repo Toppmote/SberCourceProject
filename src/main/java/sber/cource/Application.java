@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(value = "sber.cource.repository")
+@EnableJpaRepositories(value = "sber.cource.dao")
 @EntityScan("sber.cource.entity")
 @EnableEncryptableProperties
 public class Application {

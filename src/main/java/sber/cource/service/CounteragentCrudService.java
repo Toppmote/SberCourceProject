@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sber.cource.entity.CounteragentEntity;
-import sber.cource.dto.CounteragentDto;
-import sber.cource.repository.CounteragentCrudRepository;
+import sber.cource.model.CounteragentDto;
+import sber.cource.dao.CounteragentCrudRepository;
 
 import java.util.Optional;
 
@@ -78,6 +78,13 @@ public class CounteragentCrudService {
             counteragentRepository.save(editedCounteragent);
             log.info("UPDATE METHOD DONE WITH ORIKA MAPPING");
         }
+    }
+
+    /**
+     * Удаление всех записей из базы данных
+     */
+    public void deleteAll() {
+        counteragentRepository.deleteAll();
     }
 
 }
