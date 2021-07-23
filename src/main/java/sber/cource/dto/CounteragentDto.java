@@ -1,7 +1,9 @@
-package sber.cource.models;
+package sber.cource.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import sber.cource.validation.annotations.AccNumberAndBikCheck;
 import sber.cource.validation.annotations.InnCheck;
 import sber.cource.validation.annotations.NameCheck;
@@ -13,6 +15,9 @@ import javax.validation.constraints.Size;
  * Dto сущности контрагента с валидацией
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @AccNumberAndBikCheck(message = "Введенный номер счёта не зарегистрирован.\nПроверьте номер счёта и БИК")
 public class CounteragentDto {
 
@@ -55,4 +60,5 @@ public class CounteragentDto {
     @NotNull(message = "БИК не должен быть пустым")
     @Size(min = 9, max = 9, message = "БИК содержит ровно 9 цифр")
     private String bik;
+
 }

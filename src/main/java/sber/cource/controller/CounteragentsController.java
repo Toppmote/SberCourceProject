@@ -10,7 +10,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import sber.cource.entity.CounteragentDao;
 import sber.cource.dto.CounteragentDto;
 import sber.cource.service.CounteragentCrudService;
 import sber.cource.service.CounteragentSearchService;
@@ -67,7 +66,7 @@ public class CounteragentsController {
     @GetMapping("")
     public ModelAndView loadMainPAge(Model model) {
         log.info("GET - /counteragents\tENTERED LOAD MAIN PAGE METHOD");
-        List<CounteragentDao> counteragentList = counteragentSearchService.findAll();
+        List<CounteragentDto> counteragentList = counteragentSearchService.findAll();
         ModelAndView modelAndView = new ModelAndView("counteragents");
         if (errorMessages.isEmpty()) {
             log.info("NO ERRORS");
@@ -106,9 +105,7 @@ public class CounteragentsController {
             log.info("REDIRECTING TO MAIN PAGE");
             return new ModelAndView("redirect:/counteragents");
         }
-        errorMessages = null;
-        CounteragentDao newCounteragent = CounteragentDao.from(counteragentForm);
-        counteragentCrudService.save(newCounteragent);
+        counteragentCrudService.save(counteragentForm);
         log.info("ADD COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
     }
@@ -163,14 +160,15 @@ public class CounteragentsController {
     public ModelAndView updateCounteragent(@Valid CounteragentDto counteragentForm, BindingResult bindingResult) {
         log.info("POST - /counteragents/update\tENTERED UPDATE METHOD");
         BindingResult newBindingResults = new BeanPropertyBindingResult(counteragentForm, "counteragentForm");
-        CounteragentDao counteragent = counteragentSearchService.findByName(counteragentForm.getName());
+        CounteragentDto counteragent = counteragentSearchService.findByName(counteragentForm.getName());
         if (counteragent != null) {
             log.info("COUNTERAGENT WITH " + counteragentForm.getName() + " IS FOUND");
-            if (counteragent.getId() == counteragentForm.getId()) {
+            if (counteragent.getId().equals(counteragentForm.getId())) {
                 log.info("THIS IS SAME COUNTERAGENT");
                 List<ObjectError> errorsList = bindingResult.getFieldErrors().stream()
                         .filter(err -> !err.getField().equals("name")).collect(Collectors.toList());
-                errorsList.add(bindingResult.getGlobalError());
+                if(bindingResult.hasGlobalErrors())
+                    errorsList.add(bindingResult.getGlobalError());
                 for (ObjectError error : errorsList)
                     newBindingResults.addError(error);
             } else newBindingResults = bindingResult;
@@ -189,7 +187,6 @@ public class CounteragentsController {
             log.info("REDIRECTING TO MAIN PAGE");
             return new ModelAndView("redirect:/counteragents");
         }
-        errorMessages = null;
         counteragentCrudService.update(counteragentForm);
         log.info("UPDATE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/counteragents");
@@ -204,7 +201,8 @@ public class CounteragentsController {
     private Map<String, String> putErrorsInMap(BindingResult bindingResult) {
         var errorsMap = bindingResult.getFieldErrors()
                 .stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-        if (bindingResult.hasGlobalErrors()) {
+        if (bindingResult.hasGlobalErrors() &&
+                (!errorsMap.containsKey("accountNumber") || !errorsMap.containsKey("bik"))) {
             var globalError = bindingResult.getGlobalError();
             errorsMap.put("accNumberAndBik", globalError.getDefaultMessage());
         }

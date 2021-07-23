@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import sber.cource.dto.CounteragentDto;
-import sber.cource.entity.CounteragentDao;
 import sber.cource.service.CounteragentSearchService;
 import sber.cource.utils.InputConstants;
 
@@ -34,15 +33,21 @@ public class CounteragentsSearchController {
             notes = "This method searches counteragent by name or BIK/account number pair")
     public ModelAndView searchCounteragents(CounteragentDto counteragentForm, @PathVariable String field) {
         log.info("POST - /counteragents/search/" + field + "\tENTERED LOAD SEARCH PAGE METHOD");
-        List<CounteragentDao> counteragentList = new ArrayList<>();
+        List<CounteragentDto> counteragentList = new ArrayList<>();
         if(field.equals("by_name")) {
-            counteragentList.add(counteragentSearchService.findByName(counteragentForm.getName()));
-            log.info("FIND COUNTERAGENT BY NAME");
+            CounteragentDto foundCounteragent = counteragentSearchService.findByName(counteragentForm.getName());
+            if(foundCounteragent != null) {
+                counteragentList.add(foundCounteragent);
+                log.info("FIND COUNTERAGENT BY NAME");
+            }
         }
         else if(field.equals("by_bik_and_acc_number")) {
-            counteragentList = List.copyOf(counteragentSearchService
-                    .findByBikAndAccNumber(counteragentForm.getBik(), counteragentForm.getAccountNumber()));
-            log.info("FIND COUNTERAGENT BY PAIR BIK + ACC_NUMBER");
+            CounteragentDto foundCounteragent = counteragentSearchService
+                    .findByBikAndAccNumber(counteragentForm.getBik(), counteragentForm.getAccountNumber());
+            if(foundCounteragent != null) {
+                counteragentList.add(foundCounteragent);
+                log.info("FIND COUNTERAGENT BY PAIR BIK + ACC_NUMBER");
+            }
         }
         ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("counteragentsList", counteragentList);

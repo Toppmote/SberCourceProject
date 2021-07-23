@@ -1,7 +1,7 @@
 package sber.cource.entity;
 
 import lombok.*;
-import sber.cource.models.CounteragentDto;
+import sber.cource.dto.CounteragentDto;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "counteragents")
-public class Counteragent {
+public class CounteragentEntity {
 
     /**
      * ID контрагента.
@@ -53,20 +53,5 @@ public class Counteragent {
      */
     @Column(name = "BIK", length = 9, nullable = false)
     private String bik;
-
-    /**
-     * Метод создания объекта контрагента из Data Transfer Object
-     * @param counteragentDto DTO контрагента
-     * @return объект контрагента
-     */
-    public static Counteragent from(CounteragentDto counteragentDto) {
-        return Counteragent.builder()
-                .name(counteragentDto.getName())
-                .inn(counteragentDto.getInn())
-                .kpp(counteragentDto.getKpp())
-                .accountNumber(counteragentDto.getAccountNumber())
-                .bik(counteragentDto.getBik())
-                .build();
-    }
 
 }
