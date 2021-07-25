@@ -51,7 +51,7 @@
 >
 >./gradlew bootrun (Mac OS)
 
-Команда для запуска тестов:
+Команды для запуска тестов:
 > gradlew test (Windows)
 >
 >./gradlew test (Mac OS)
