@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestControllerAdvice
 @Slf4j
-@Api(tags = "Crud контроллер для таблицы контрагентов")
+@Api(tags = "Exception контроллер для таблицы контрагентов")
 public class ExceptionController {
 
     /**
